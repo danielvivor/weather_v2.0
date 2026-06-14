@@ -110,3 +110,13 @@ def handle_remove_favorite(model):
         print(f"Success: '{city_input.title()}' removed from favorites.")
     else:
         print(f"Error: '{city_input.title()}' was not found in favorites.")
+
+def handle_view_history(model):
+    """Iterates and displays local program logging models."""
+    history = model.get_history()
+    print("\n--- Local Search History Log ---")
+    if not history:
+        print("No queries recorded during this application session.")
+    else:
+        for index, entry in enumerate(history, start=1):
+            print(f"[{index}] {entry['city']} | {entry['temp']}°C | {entry['condition']}")
