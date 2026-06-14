@@ -20,3 +20,11 @@ def add_favorite(self, city):
             self.favorites.add(normalized_city)
             return True
         return False
+
+def remove_favorite(self, city):
+        """Removes a city from favorites. Returns True if removed successfully."""
+        normalized_city = city.strip().title()
+        if normalized_city in self.favorites:
+            self.favorites.remove(normalized_city)
+            return True
+        return False
