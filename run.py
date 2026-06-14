@@ -1,7 +1,14 @@
-def main():
-    """Main application entry execution pattern."""
-    pass
+import sys
 
+def main():
+    """App entry loop handling basic choice validation & clean shutdown patterns."""
+    while True:
+        display_main_menu()
+        choice = input("Select an option (1-6): ").strip()
+
+        if choice == "6":
+            print("\nThank you for using Weather Dashboard CLI. Goodbye!")
+            sys.exit(0)
 
 if __name__ == "__main__":
     main()
