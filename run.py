@@ -1,9 +1,13 @@
 import os
 import sys
+from dotenv import load_dotenv
 from weather_model import WeatherAppModel
 from api_handler import fetch_weather_by_city
 
-API_KEY = os.environ.get("OPENWEATHER_API_KEY", "ACTUAL_API_KEY_HERE")
+# Load the hidden local .env file variables into the system
+load_dotenv()
+
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
 # Define all helper functions BEFORE they are called
 def print_divider():
