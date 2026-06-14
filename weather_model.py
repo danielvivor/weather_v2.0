@@ -12,3 +12,11 @@ def add_to_history(self, city, temperature, condition):
             "condition": condition
         }
         self.search_history.append(record)
+
+def add_favorite(self, city):
+        """Adds a city to the favorites collection. Returns True if added."""
+        normalized_city = city.strip().title()
+        if normalized_city and normalized_city not in self.favorites:
+            self.favorites.add(normalized_city)
+            return True
+        return False
