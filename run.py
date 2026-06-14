@@ -12,6 +12,8 @@ def main():
             display_main_menu()
             choice = input("Select an option (1-6): ").strip()
 
+            if choice == "1":
+              handle_weather_lookup(app_data)
             if choice == "2":
                 handle_view_favorites(app_data)
             elif choice == "3":
