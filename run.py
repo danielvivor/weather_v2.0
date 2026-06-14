@@ -1,5 +1,7 @@
 import sys
 from weather_model import WeatherAppModel
+import os
+from api_handler import fetch_weather_by_city
 
 def main():
     """App entry loop handling basic choice validation & clean shutdown patterns."""
@@ -64,3 +66,29 @@ def handle_add_favorite(model):
         print(f"Success: '{city_input.title()}' has been added.")
     else:
         print(f"Notice: '{city_input.title()}' is already in your favorites.")
+
+API_KEY = os.environ.get("OPENWEATHER_API_KEY", "ACTUAL_API_KEY_HERE")
+
+def handle_weather_lookup(model):
+    """Prompts for city input, handles validation, and presents results."""
+    print("\n--- Current Weather Lookup ---")
+    city_input = input("Enter city name: ").strip()
+
+    if not city_input:
+        print("Error: Input cannot be empty. Please enter a valid name.")
+        return
+
+    print(f"Fetching data for '{city_input}'...")
+    result = fetch_weather_by_city(city_input, API_KEY)
+
+    if result["success"]:
+        print_divider()
+        print(f"Weather for: {result['city']}, {result['country']}")
+        print(f"Temperature: {result['temp']}°C")
+        print(f"Humidity:    {result['humidity']}%")
+        print(f"Conditions:  {result['condition']}")
+        print_divider()
+        
+        model.add_to_history(result["city"], result["temp"], result["condition"])
+    else:
+        print(f"Error: {result['message']}")
