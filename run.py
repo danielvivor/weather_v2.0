@@ -46,3 +46,17 @@ def handle_view_favorites(model):
     else:
         for index, city in enumerate(favorites, start=1):
             print(f"{index}. {city}")
+
+def handle_add_favorite(model):
+    """Captures and validates a new city item to include in favorites collection."""
+    print("\n--- Add a Favorite City ---")
+    city_input = input("Enter city name to add: ").strip()
+    
+    if not city_input or city_input.isdigit():
+        print("Error: Please provide a valid textual city identifier.")
+        return
+
+    if model.add_favorite(city_input):
+        print(f"Success: '{city_input.title()}' has been added.")
+    else:
+        print(f"Notice: '{city_input.title()}' is already in your favorites.")
