@@ -4,7 +4,7 @@ from weather_model import WeatherAppModel
 def main():
     """App entry loop handling basic choice validation & clean shutdown patterns."""
     app_data = WeatherAppModel()
-    
+
     while True:
         try:
             display_main_menu()
@@ -36,3 +36,13 @@ def display_main_menu():
     print("5. View Search History Log")
     print("6. Exit Application")
     print_divider()
+
+def handle_view_favorites(model):
+    """Lists current favorite items saved inside the model instance."""
+    favorites = model.get_favorites()
+    print("\n--- Your Favorite Cities ---")
+    if not favorites:
+        print("Your favorites list is currently empty.")
+    else:
+        for index, city in enumerate(favorites, start=1):
+            print(f"{index}. {city}")
