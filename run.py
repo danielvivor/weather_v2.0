@@ -1,7 +1,10 @@
 import sys
+from weather_model import WeatherAppModel
 
 def main():
     """App entry loop handling basic choice validation & clean shutdown patterns."""
+    app_data = WeatherAppModel()
+    
     while True:
         try:
             display_main_menu()
