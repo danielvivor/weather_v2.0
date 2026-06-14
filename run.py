@@ -1,37 +1,11 @@
+import os
 import sys
 from weather_model import WeatherAppModel
-import os
 from api_handler import fetch_weather_by_city
 
-def main():
-    """App entry loop handling basic choice validation & clean shutdown patterns."""
-    app_data = WeatherAppModel()
+API_KEY = os.environ.get("OPENWEATHER_API_KEY", "ACTUAL_API_KEY_HERE")
 
-    while True:
-        try:
-            display_main_menu()
-            choice = input("Select an option (1-6): ").strip()
-
-            if choice == "1":
-              handle_weather_lookup(app_data)
-            if choice == "2":
-                handle_view_favorites(app_data)
-            elif choice == "3":
-                handle_add_favorite(app_data)
-            elif choice == "4":
-                handle_remove_favorite(app_data)
-            elif choice == "5":
-                handle_view_history(app_data)
-            elif choice == "6":
-                print("\nThank you for using Weather Dashboard CLI. Goodbye!")
-                sys.exit(0)
-        except KeyboardInterrupt:
-            print("\n\nApplication closing down gracefully...")
-            sys.exit(0)
-
-if __name__ == "__main__":
-    main()
-
+# Define all helper functions BEFORE they are called
 def print_divider():
     """Prints a consistent visual divider fitting the 80-char mock terminal."""
     print("-" * 65)
@@ -72,8 +46,6 @@ def handle_add_favorite(model):
         print(f"Success: '{city_input.title()}' has been added.")
     else:
         print(f"Notice: '{city_input.title()}' is already in your favorites.")
-
-API_KEY = os.environ.get("OPENWEATHER_API_KEY", "ACTUAL_API_KEY_HERE")
 
 def handle_weather_lookup(model):
     """Prompts for city input, handles validation, and presents results."""
@@ -122,3 +94,37 @@ def handle_view_history(model):
     else:
         for index, entry in enumerate(history, start=1):
             print(f"[{index}] {entry['city']} | {entry['temp']}°C | {entry['condition']}")
+
+# Define main() after all the helper functions it relies on
+def main():
+    """App entry loop handling basic choice validation & clean shutdown patterns."""
+    app_data = WeatherAppModel()
+
+    while True:
+        try:
+            display_main_menu()
+            choice = input("Select an option (1-6): ").strip()
+
+            if choice == "1":
+                handle_weather_lookup(app_data)
+            elif choice == "2":  # FIXED: Changed 'if' to 'elif' here to maintain the logic chain
+                handle_view_favorites(app_data)
+            elif choice == "3":
+                handle_add_favorite(app_data)
+            elif choice == "4":
+                handle_remove_favorite(app_data)
+            elif choice == "5":
+                handle_view_history(app_data)
+            elif choice == "6":
+                print("\nThank you for using Weather Dashboard CLI. Goodbye!")
+                sys.exit(0)
+            else:
+                # ADDED: A fallback if the user types something like "7" or "abc"
+                print("\nInvalid entry. Please choose a number between 1 and 6.")
+        except KeyboardInterrupt:
+            print("\n\nApplication closing down gracefully...")
+            sys.exit(0)
+
+# Execution trigger at the absolute bottom
+if __name__ == "__main__":
+    main()
