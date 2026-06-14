@@ -10,7 +10,11 @@ def main():
             display_main_menu()
             choice = input("Select an option (1-6): ").strip()
 
-            if choice == "6":
+            if choice == "2":
+                handle_view_favorites(app_data)
+            elif choice == "3":
+                handle_add_favorite(app_data)
+            elif choice == "6":
                 print("\nThank you for using Weather Dashboard CLI. Goodbye!")
                 sys.exit(0)
         except KeyboardInterrupt:
