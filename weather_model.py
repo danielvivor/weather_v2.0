@@ -28,3 +28,11 @@ def remove_favorite(self, city):
             self.favorites.remove(normalized_city)
             return True
         return False
+
+def get_history(self):
+        """Returns the search history records."""
+        return self.search_history
+
+def get_favorites(self):
+        """Returns a sorted list of favorite cities."""
+        return sorted(list(self.favorites))
