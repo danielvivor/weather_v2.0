@@ -10,9 +10,11 @@ load_dotenv()
 API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
 # Define all helper functions BEFORE they are called
+
 def print_divider():
     """Prints a consistent visual divider fitting the 80-char mock terminal."""
     print("-" * 65)
+
 
 def display_main_menu():
     """Displays standard choices on the console interface."""
@@ -27,6 +29,7 @@ def display_main_menu():
     print("6. Exit Application")
     print_divider()
 
+
 def handle_view_favorites(model):
     """Lists current favorite items saved inside the model instance."""
     favorites = model.get_favorites()
@@ -37,11 +40,12 @@ def handle_view_favorites(model):
         for index, city in enumerate(favorites, start=1):
             print(f"{index}. {city}")
 
+
 def handle_add_favorite(model):
     """Captures and validates a new city item to include in favorites collection."""
     print("\n--- Add a Favorite City ---")
     city_input = input("Enter city name to add: ").strip()
-    
+
     if not city_input or city_input.isdigit():
         print("Error: Please provide a valid textual city identifier.")
         return
@@ -50,6 +54,7 @@ def handle_add_favorite(model):
         print(f"Success: '{city_input.title()}' has been added.")
     else:
         print(f"Notice: '{city_input.title()}' is already in your favorites.")
+
 
 def handle_weather_lookup(model):
     """Prompts for city input, handles validation, and presents results."""
@@ -70,24 +75,27 @@ def handle_weather_lookup(model):
         print(f"Humidity:    {result['humidity']}%")
         print(f"Conditions:  {result['condition']}")
         print_divider()
-        
-        model.add_to_history(result["city"], result["temp"], result["condition"])
+
+        model.add_to_history(
+            result["city"], result["temp"], result["condition"])
     else:
         print(f"Error: {result['message']}")
+
 
 def handle_remove_favorite(model):
     """Provides removal access over persistent local business models."""
     print("\n--- Remove a Favorite City ---")
     city_input = input("Enter city name to remove: ").strip()
-    
+
     if not city_input:
         print("Error: Input cannot be empty.")
         return
-    
+
     if model.remove_favorite(city_input):
         print(f"Success: '{city_input.title()}' removed from favorites.")
     else:
         print(f"Error: '{city_input.title()}' was not found in favorites.")
+
 
 def handle_view_history(model):
     """Iterates and displays local program logging models."""
@@ -97,9 +105,12 @@ def handle_view_history(model):
         print("No queries recorded during this application session.")
     else:
         for index, entry in enumerate(history, start=1):
-            print(f"[{index}] {entry['city']} | {entry['temp']}°C | {entry['condition']}")
+            print(
+                f"[{index}] {entry['city']} | {entry['temp']}°C | {entry['condition']}")
 
 # Define main() after all the helper functions it relies on
+
+
 def main():
     """App entry loop handling basic choice validation & clean shutdown patterns."""
     app_data = WeatherAppModel()
@@ -128,6 +139,7 @@ def main():
         except KeyboardInterrupt:
             print("\n\nApplication closing down gracefully...")
             sys.exit(0)
+
 
 # Execution trigger at the absolute bottom
 if __name__ == "__main__":

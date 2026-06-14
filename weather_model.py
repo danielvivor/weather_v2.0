@@ -3,6 +3,7 @@ class WeatherAppModel:
     Manages the core application data, including user search history
     and a collection of favorite cities.
     """
+
     def __init__(self):
         # A list to store dictionaries of past successful weather queries
         self.search_history = []
