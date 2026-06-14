@@ -18,6 +18,8 @@ def main():
                 handle_view_favorites(app_data)
             elif choice == "3":
                 handle_add_favorite(app_data)
+            elif choice == "4":
+                handle_remove_favorite(app_data)
             elif choice == "6":
                 print("\nThank you for using Weather Dashboard CLI. Goodbye!")
                 sys.exit(0)
