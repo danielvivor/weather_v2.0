@@ -94,3 +94,17 @@ def handle_weather_lookup(model):
         model.add_to_history(result["city"], result["temp"], result["condition"])
     else:
         print(f"Error: {result['message']}")
+
+def handle_remove_favorite(model):
+    """Provides removal access over persistent local business models."""
+    print("\n--- Remove a Favorite City ---")
+    city_input = input("Enter city name to remove: ").strip()
+    
+    if not city_input:
+        print("Error: Input cannot be empty.")
+        return
+    
+    if model.remove_favorite(city_input):
+        print(f"Success: '{city_input.title()}' removed from favorites.")
+    else:
+        print(f"Error: '{city_input.title()}' was not found in favorites.")
