@@ -3,11 +3,15 @@ import sys
 def main():
     """App entry loop handling basic choice validation & clean shutdown patterns."""
     while True:
-        display_main_menu()
-        choice = input("Select an option (1-6): ").strip()
+        try:
+            display_main_menu()
+            choice = input("Select an option (1-6): ").strip()
 
-        if choice == "6":
-            print("\nThank you for using Weather Dashboard CLI. Goodbye!")
+            if choice == "6":
+                print("\nThank you for using Weather Dashboard CLI. Goodbye!")
+                sys.exit(0)
+        except KeyboardInterrupt:
+            print("\n\nApplication closing down gracefully...")
             sys.exit(0)
 
 if __name__ == "__main__":
